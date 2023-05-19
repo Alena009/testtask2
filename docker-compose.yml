@@ -3,17 +3,17 @@ services:
   db:
     image: 'mariadb:10'
     container_name: trax_db
-    command: --default-authentication-plugin=mysql_native_password
+    command: '--default-authentication-plugin=mysql_native_password'
     restart: on-failure
     ports:
-      - "3307:3306"
+      - '3307:3306'
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_USER=${DB_USERNAME}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - 'MYSQL_ROOT_PASSWORD=${DB_PASSWORD}'
+      - 'MYSQL_DATABASE=${DB_DATABASE}'
+      - 'MYSQL_USER=${DB_USERNAME}'
+      - 'MYSQL_PASSWORD=${DB_PASSWORD}'
     volumes:
-      - mysql_data:/var/lib/mysql
+      - 'mysql_data:/var/lib/mysql'
     networks:
       main:
         aliases:
@@ -25,9 +25,9 @@ services:
     container_name: trax_php
     restart: on-failure
     ports:
-      - "9002:9000"
+      - '9002:9000'
     volumes:
-      - ./:/var/www/trax
+      - './:/var/www/trax'
     links:
       - db
     depends_on:
@@ -50,14 +50,14 @@ services:
         aliases:
           - nginx
     volumes:
-      - ./:/var/www/trax
-      - ./docker/logs/nginx/:/var/log/nginx:cached
+      - './:/var/www/trax'
+      - './docker/logs/nginx/:/var/log/nginx:cached'
     environment:
-      - NGINX_DEV_HOST=${TRAX_HOST}
-      - PHP_PORT=9002:9000
+      - 'NGINX_DEV_HOST=${TRAX_HOST}'
+      - 'PHP_PORT=9002:9000'
     depends_on:
       - php
 volumes:
-  mysql_data:
+  mysql_data: null
 networks:
-  main:
+  main: null
